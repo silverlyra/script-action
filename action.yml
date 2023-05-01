@@ -8,9 +8,19 @@ inputs:
   name:
     description: Base filename to assign to the script (if inline)
     default: script
+  input:
+    description: Input data to make available to your script
+    default: ''
+    required: false
   github-token:
     description: Create an authenticated GitHub client
     default: ${{ github.token }}
+  input-encoding:
+    description: >-
+      Use "json" to JSON-decode the "input" input, or "string" to expose the raw
+      input string to your function. (default: "json")
+    required: true
+    default: json
   result-encoding:
     description: >-
       Use "json" to JSON-encode the script's return value, or "string" to return

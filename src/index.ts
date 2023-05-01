@@ -19,14 +19,10 @@ export async function run<T extends Unknown = Unknown>(
   const name = core.getInput('name')
   let script = core.getInput('script', {required: true})
 
-  const resultEncoding =
+  const resultEncoding = validateEncoding(
+    'result',
     core.getInput('result-encoding') || process.env.INPUT_RESULT_ENCODING || ''
-  if (!['json', 'string'].includes(resultEncoding))
-    throw new Error(
-      `result-encoding option must be either "string" or "json", not ${JSON.stringify(
-        resultEncoding
-      )}`
-    )
+  )
 
   const cwd = core.getInput('cwd')
   if (cwd && cwd !== '.') {
@@ -76,12 +72,23 @@ export async function execute<T extends object>(
 export type Context<V extends object> = DefaultContext & V
 
 export function defaultContext(githubToken?: string): DefaultContext {
+  const inputEncoding = validateEncoding(
+    'input',
+    core.getInput('input-encoding') || process.env.INPUT_INPUT_ENCODING || ''
+  )
+  const inputRaw = core.getInput('input')
+
+  const input =
+    inputEncoding === 'json' ? JSON.parse(inputRaw || 'null') : inputRaw
+
   const github = githubToken ? getOctokit(githubToken) : null
 
   return {
+    input,
+    env: process.env,
+
     core,
     exec,
-
     fetch,
 
     artifact,
@@ -92,9 +99,11 @@ export function defaultContext(githubToken?: string): DefaultContext {
 }
 
 export interface DefaultContext {
+  input: unknown
+  env: typeof process.env
+
   core: typeof core
   exec: typeof exec
-
   fetch: typeof fetch
 
   artifact: typeof artifact
@@ -106,4 +115,15 @@ export interface DefaultContext {
 export function scriptInputType(script: string): 'inline' | 'path' {
   const singleLine = !script.includes('\n')
   return singleLine && /[.][a-z]+sx?$/i.test(script) ? 'path' : 'inline'
+}
+
+function validateEncoding(field: string, encoding: string): 'json' | 'string' {
+  if (!['json', 'string'].includes(encoding))
+    throw new Error(
+      `${field}-encoding option must be either "string" or "json", not ${JSON.stringify(
+        encoding
+      )}`
+    )
+
+  return encoding as 'json' | 'string'
 }

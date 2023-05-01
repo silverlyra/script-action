@@ -12,6 +12,8 @@ export declare function execute<T extends object>(source: string, context: T): P
 export type Context<V extends object> = DefaultContext & V;
 export declare function defaultContext(githubToken?: string): DefaultContext;
 export interface DefaultContext {
+    input: unknown;
+    env: typeof process.env;
     core: typeof core;
     exec: typeof exec;
     fetch: typeof fetch;
