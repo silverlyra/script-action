@@ -1,0 +1,1 @@
+{"version":3,"file":"main.cjs","sources":["../src/main.ts"],"sourcesContent":["import {run} from '.'\n\nrun({})\n"],"names":["run"],"mappings":"4lBAEAA,EAAA,IAAI,EAAE"}

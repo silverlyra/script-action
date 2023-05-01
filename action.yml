@@ -1,11 +1,38 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'JavaScript action'
+description: 'Run a JavaScript snippet within a GitHub workflow'
+author: 'Lyra Naeseth'
 inputs:
-  milliseconds: # change this
+  script:
+    description: The script to run (or a script filename)
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  name:
+    description: Base filename to assign to the script (if inline)
+    default: script
+  input:
+    description: Input data to make available to your script
+    default: ''
+    required: false
+  github-token:
+    description: Create an authenticated GitHub client
+    default: ${{ github.token }}
+  input-encoding:
+    description: >-
+      Use "json" to JSON-decode the "input" input, or "string" to expose the raw
+      input string to your function. (default: "json")
+    required: true
+    default: json
+  result-encoding:
+    description: >-
+      Use "json" to JSON-encode the script's return value, or "string" to return
+      a string directly. (default: "json")
+    required: true
+    default: json
+  cwd:
+    description: Directory to change into
+    default: '.'
+outputs:
+  result:
+    description: What the script returned, encoded according to "result-encoding"
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'dist/main.mjs'
