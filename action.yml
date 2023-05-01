@@ -1,6 +1,9 @@
 name: 'JavaScript action'
 description: 'Run a JavaScript snippet within a GitHub workflow'
 author: 'Lyra Naeseth'
+branding:
+  icon: code
+  color: blue
 inputs:
   script:
     description: The script to run (or a script filename)
