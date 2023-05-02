@@ -1,5 +1,5 @@
 import "fs/promises";
-import { c as D, d as E, e as F, b as G, g as H, i as J, r as K, s as L } from "./index-756d22e5.js";
+import { c as D, d as E, e as F, b as G, g as H, i as J, r as K, s as L, f as M } from "./index-787186d0.js";
 import "node:http";
 import "node:https";
 import "node:zlib";
@@ -36,6 +36,7 @@ export {
   H as glob,
   J as io,
   K as run,
-  L as scriptInputType
+  L as scriptInputType,
+  M as shell
 };
 //# sourceMappingURL=index.mjs.map

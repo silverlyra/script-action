@@ -14,6 +14,7 @@ export declare function defaultContext(githubToken?: string): DefaultContext;
 export interface DefaultContext {
     input: unknown;
     env: typeof process.env;
+    shell: typeof shell;
     core: typeof core;
     exec: typeof exec;
     fetch: typeof fetch;
@@ -22,4 +23,12 @@ export interface DefaultContext {
     glob: typeof glob;
     io: typeof io;
 }
+export declare function shell(command: string, options?: exec.ExecOptions): Promise<number>;
+export declare function shell(command: string, args: string[], options?: exec.ExecOptions): Promise<number>;
+export declare function shell(command: string, options: {
+    capture: true;
+} & exec.ExecOptions): Promise<exec.ExecOutput>;
+export declare function shell(command: string, args: string[], options: {
+    capture: true;
+} & exec.ExecOptions): Promise<exec.ExecOutput>;
 export declare function scriptInputType(script: string): 'inline' | 'path';
