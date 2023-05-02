@@ -86,6 +86,7 @@ export function defaultContext(githubToken?: string): DefaultContext {
   return {
     input,
     env: process.env,
+    shell,
 
     core,
     exec,
@@ -101,6 +102,7 @@ export function defaultContext(githubToken?: string): DefaultContext {
 export interface DefaultContext {
   input: unknown
   env: typeof process.env
+  shell: typeof shell
 
   core: typeof core
   exec: typeof exec
@@ -110,6 +112,38 @@ export interface DefaultContext {
   github: ReturnType<typeof getOctokit> | null
   glob: typeof glob
   io: typeof io
+}
+
+export function shell(
+  command: string,
+  options?: exec.ExecOptions
+): Promise<number>
+export function shell(
+  command: string,
+  args: string[],
+  options?: exec.ExecOptions
+): Promise<number>
+export function shell(
+  command: string,
+  options: {capture: true} & exec.ExecOptions
+): Promise<exec.ExecOutput>
+export function shell(
+  command: string,
+  args: string[],
+  options: {capture: true} & exec.ExecOptions
+): Promise<exec.ExecOutput>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function shell(command: string, ...argv: any[]): Promise<any> {
+  const args: string[] | undefined = Array.isArray(argv[0])
+    ? argv.shift()
+    : undefined
+  const options: ({capture?: boolean} & exec.ExecOptions) | undefined =
+    argv[0] && typeof argv[0] === 'object' ? argv.shift() : undefined
+  const capture = !!options?.capture
+
+  return capture
+    ? exec.getExecOutput(command, args, options)
+    : exec.exec(command, args, options)
 }
 
 export function scriptInputType(script: string): 'inline' | 'path' {
