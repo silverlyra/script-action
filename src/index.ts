@@ -36,7 +36,7 @@ export async function run<T extends Unknown = Unknown>(
   try {
     const result = await execute(script, {
       ...defaultContext(core.getInput('github-token') || undefined),
-      context
+      ...context
     })
     core.setOutput(
       'result',
