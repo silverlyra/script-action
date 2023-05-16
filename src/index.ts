@@ -5,9 +5,10 @@ import 'node-get-random-values/phonyfill'
 import * as artifact from '@actions/artifact'
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
-import {getOctokit} from '@actions/github'
 import * as glob from '@actions/glob'
 import * as io from '@actions/io'
+
+import {Github} from './github'
 
 export {core, exec, glob, io}
 
@@ -81,7 +82,7 @@ export function defaultContext(githubToken?: string): DefaultContext {
   const input =
     inputEncoding === 'json' ? JSON.parse(inputRaw || 'null') : inputRaw
 
-  const github = githubToken ? getOctokit(githubToken) : null
+  const github = githubToken ? new Github({auth: `token ${githubToken}`}) : null
 
   return {
     input,
@@ -109,7 +110,7 @@ export interface DefaultContext {
   fetch: typeof fetch
 
   artifact: typeof artifact
-  github: ReturnType<typeof getOctokit> | null
+  github: Github | null
   glob: typeof glob
   io: typeof io
 }

@@ -2,9 +2,9 @@ import fetch from 'node-fetch';
 import * as artifact from '@actions/artifact';
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
-import { getOctokit } from '@actions/github';
 import * as glob from '@actions/glob';
 import * as io from '@actions/io';
+import { Github } from './github';
 export { core, exec, glob, io };
 export type Unknown = Record<string, unknown>;
 export declare function run<T extends Unknown = Unknown>(context: T): Promise<void>;
@@ -19,7 +19,7 @@ export interface DefaultContext {
     exec: typeof exec;
     fetch: typeof fetch;
     artifact: typeof artifact;
-    github: ReturnType<typeof getOctokit> | null;
+    github: Github | null;
     glob: typeof glob;
     io: typeof io;
 }
