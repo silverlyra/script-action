@@ -123,35 +123,27 @@ export interface DefaultContext {
 }
 
 export function shell(
-  command: string,
+  command: string | string[],
   options?: exec.ExecOptions
 ): Promise<number>
 export function shell(
-  command: string,
-  args: string[],
-  options?: exec.ExecOptions
-): Promise<number>
-export function shell(
-  command: string,
+  command: string | string[],
   options: {capture: true} & exec.ExecOptions
 ): Promise<exec.ExecOutput>
-export function shell(
-  command: string,
-  args: string[],
-  options: {capture: true} & exec.ExecOptions
-): Promise<exec.ExecOutput>
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function shell(command: string, ...argv: any[]): Promise<any> {
-  const args: string[] | undefined = Array.isArray(argv[0])
-    ? argv.shift()
+export async function shell(
+  command: string | string[],
+  options?: {capture?: true} & exec.ExecOptions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> {
+  const cmd = Array.isArray(command) ? command[0] : command
+  const args: string[] | undefined = Array.isArray(command)
+    ? command.slice(1)
     : undefined
-  const options: ({capture?: boolean} & exec.ExecOptions) | undefined =
-    argv[0] && typeof argv[0] === 'object' ? argv.shift() : undefined
   const capture = !!options?.capture
 
   return capture
-    ? exec.getExecOutput(command, args, options)
-    : exec.exec(command, args, options)
+    ? exec.getExecOutput(cmd, args, options)
+    : exec.exec(cmd, args, options)
 }
 
 export function scriptInputType(script: string): 'inline' | 'path' {

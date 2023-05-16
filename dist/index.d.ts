@@ -28,12 +28,8 @@ export interface DefaultContext {
     glob: typeof glob;
     io: typeof io;
 }
-export declare function shell(command: string, options?: exec.ExecOptions): Promise<number>;
-export declare function shell(command: string, args: string[], options?: exec.ExecOptions): Promise<number>;
-export declare function shell(command: string, options: {
-    capture: true;
-} & exec.ExecOptions): Promise<exec.ExecOutput>;
-export declare function shell(command: string, args: string[], options: {
+export declare function shell(command: string | string[], options?: exec.ExecOptions): Promise<number>;
+export declare function shell(command: string | string[], options: {
     capture: true;
 } & exec.ExecOptions): Promise<exec.ExecOutput>;
 export declare function scriptInputType(script: string): 'inline' | 'path';
