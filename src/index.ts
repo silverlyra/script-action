@@ -10,6 +10,7 @@ import * as glob from '@actions/glob'
 import * as io from '@actions/io'
 import chalk from 'chalk'
 
+import {readEvent} from './event'
 import {Github} from './github'
 
 export {core, exec, glob, io}
@@ -102,6 +103,7 @@ export function defaultContext(githubToken?: string): DefaultContext {
     artifact,
     github,
     glob,
+    readEvent,
     io
   }
 }
@@ -122,6 +124,7 @@ export interface DefaultContext {
   artifact: typeof artifact
   github: Github | null
   glob: typeof glob
+  readEvent: typeof readEvent
   io: typeof io
 }
 
