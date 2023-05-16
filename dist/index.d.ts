@@ -1,5 +1,7 @@
 /// <reference types="node" />
+/// <reference types="node" />
 import * as fs from 'fs/promises';
+import path from 'path';
 import fetch from 'node-fetch';
 import * as artifact from '@actions/artifact';
 import * as core from '@actions/core';
@@ -19,6 +21,7 @@ export interface DefaultContext {
     env: typeof process.env;
     shell: typeof shell;
     fs: typeof fs;
+    path: typeof path;
     chalk: typeof chalk;
     core: typeof core;
     exec: typeof exec;

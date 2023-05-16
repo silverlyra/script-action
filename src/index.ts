@@ -1,4 +1,5 @@
 import * as fs from 'fs/promises'
+import path from 'path'
 import fetch from 'node-fetch'
 import 'node-get-random-values/phonyfill'
 
@@ -91,6 +92,7 @@ export function defaultContext(githubToken?: string): DefaultContext {
     shell,
 
     fs,
+    path,
     chalk,
 
     core,
@@ -110,6 +112,7 @@ export interface DefaultContext {
   shell: typeof shell
 
   fs: typeof fs
+  path: typeof path
   chalk: typeof chalk
 
   core: typeof core

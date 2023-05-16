@@ -1,5 +1,6 @@
-import { r } from "./index-28b0e140.js";
+import { r } from "./index-4556fb03.js";
 import "fs/promises";
+import "path";
 import "node:http";
 import "node:https";
 import "node:zlib";
@@ -13,7 +14,6 @@ import "node:path";
 import "crypto";
 import "os";
 import "fs";
-import "path";
 import "http";
 import "https";
 import "net";
