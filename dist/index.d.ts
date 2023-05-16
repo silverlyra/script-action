@@ -1,9 +1,12 @@
+/// <reference types="node" />
+import * as fs from 'fs/promises';
 import fetch from 'node-fetch';
 import * as artifact from '@actions/artifact';
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as glob from '@actions/glob';
 import * as io from '@actions/io';
+import chalk from 'chalk';
 import { Github } from './github';
 export { core, exec, glob, io };
 export type Unknown = Record<string, unknown>;
@@ -15,6 +18,8 @@ export interface DefaultContext {
     input: unknown;
     env: typeof process.env;
     shell: typeof shell;
+    fs: typeof fs;
+    chalk: typeof chalk;
     core: typeof core;
     exec: typeof exec;
     fetch: typeof fetch;

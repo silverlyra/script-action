@@ -1,4 +1,4 @@
-import {readFile} from 'fs/promises'
+import * as fs from 'fs/promises'
 import fetch from 'node-fetch'
 import 'node-get-random-values/phonyfill'
 
@@ -7,6 +7,7 @@ import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as glob from '@actions/glob'
 import * as io from '@actions/io'
+import chalk from 'chalk'
 
 import {Github} from './github'
 
@@ -31,7 +32,7 @@ export async function run<T extends Unknown = Unknown>(
   }
 
   if (scriptInputType(script) === 'path') {
-    script = await readFile(script, 'utf-8')
+    script = await fs.readFile(script, 'utf-8')
   }
 
   try {
@@ -89,6 +90,9 @@ export function defaultContext(githubToken?: string): DefaultContext {
     env: process.env,
     shell,
 
+    fs,
+    chalk,
+
     core,
     exec,
     fetch,
@@ -104,6 +108,9 @@ export interface DefaultContext {
   input: unknown
   env: typeof process.env
   shell: typeof shell
+
+  fs: typeof fs
+  chalk: typeof chalk
 
   core: typeof core
   exec: typeof exec
