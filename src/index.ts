@@ -87,6 +87,8 @@ export function defaultContext(githubToken?: string): DefaultContext {
 
   const github = githubToken ? new Github({auth: `token ${githubToken}`}) : null
 
+  if (process.env.GITHUB_ACTIONS) chalk.level = 2
+
   return {
     input,
     env: process.env,
