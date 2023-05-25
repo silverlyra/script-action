@@ -1,6 +1,6 @@
 {
   "name": "github-script-action",
-  "version": "0.2.0-beta.1",
+  "version": "0.2.0",
   "description": "GitHub Action for running inline JavaScript snippets",
   "author": "Lyra Naeseth <lyra@lyra.codes>",
   "license": "MIT",
