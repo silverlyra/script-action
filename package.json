@@ -46,8 +46,7 @@
     "@octokit/plugin-rest-endpoint-methods": "^7.1.0",
     "@octokit/webhooks-types": "^6.11.0",
     "chalk": "^4.1.2",
-    "node-fetch": "^3.3.1",
-    "node-get-random-values": "^1.1.0"
+    "node-fetch": "^3.3.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.13",

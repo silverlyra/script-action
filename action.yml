@@ -15,9 +15,6 @@ inputs:
     description: Input data to make available to your script
     default: ''
     required: false
-  github-token:
-    description: Create an authenticated GitHub client
-    default: ${{ github.token }}
   input-encoding:
     description: >-
       Use "json" to JSON-decode the "input" input, or "string" to expose the raw
@@ -33,9 +30,12 @@ inputs:
   cwd:
     description: Directory to change into
     default: '.'
+  github-token:
+    description: Create an authenticated GitHub client
+    default: ${{ github.token }}
 outputs:
   result:
     description: What the script returned, encoded according to "result-encoding"
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/main.mjs'
