@@ -1,7 +1,6 @@
 import * as fs from 'fs/promises'
 import path from 'path'
 import fetch from 'node-fetch'
-import 'node-get-random-values/phonyfill'
 
 import * as artifact from '@actions/artifact'
 import * as core from '@actions/core'
