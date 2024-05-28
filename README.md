@@ -40,6 +40,7 @@ The JavaScript passed as the `script` input will have the following values prede
 
 - `input`: The `input` passed to the action, via `with:`
 - `env`: An object containing all environment variables (`process.env`)
+- `github`: A GitHub [REST API client](https://octokit.github.io/rest.js/v18)
 
 Scripts also have access to some helper functions:
 
